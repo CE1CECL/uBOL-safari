@@ -11,6 +11,9 @@ jobs:
           unzip -d safari-web-extension-converter uBOLite.beta.safari.zip
           xcrun safari-web-extension-converter --copy-resources --no-open --no-prompt --force safari-web-extension-converter
           xcodebuild build -alltargets -project "./uBlock Origin Lite/uBlock Origin Lite.xcodeproj" CODE_SIGNING_ALLOWED=NO
+          mkdir -pv Payload/
+          cp -rfv "uBlock Origin Lite/build/Release-iphoneos/uBlock Origin Lite.app" Payload/
+          zip -r9v uBOL-safari.ipa Payload
       - name: Upload
         uses: actions/upload-artifact@v4.0.0
         with:
