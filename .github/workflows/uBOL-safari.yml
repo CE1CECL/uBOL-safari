@@ -7,8 +7,9 @@ jobs:
     steps:
       - name: Safari Web Extension Converter
         run: |
-          wget https://github.com/CE1CECL/uBOL-home/releases/download/uBOLite_2025.814.1808-beta/uBOLite.beta.safari.zip
-          unzip -d safari-web-extension-converter uBOLite.beta.safari.zip
+          wget https://github.com/uBlockOrigin/uBOL-home/releases/download/2025.906.1308/uBOLite_2025.906.1308.safari.zip
+          unzip -d safari-web-extension-converter uBOLite_2025.906.1308.safari.zip
+          sed -i '' 's/.*strict_min_version.*//g' safari-web-extension-converter/manifest.json
           xcrun safari-web-extension-converter --copy-resources --no-open --no-prompt --force safari-web-extension-converter
           xcodebuild build -alltargets -project "./uBlock Origin Lite/uBlock Origin Lite.xcodeproj" CODE_SIGNING_ALLOWED=NO
           mkdir -pv Payload/
