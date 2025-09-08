@@ -1,11 +1,11 @@
-name: uBOL-safari
+name: uBlock Origin Lite
 on: workflow_dispatch
 jobs:
   build:
     runs-on: macos-14
     timeout-minutes: 9999
     steps:
-      - name: Safari Web Extension Converter
+      - name: uBlock Origin Lite
         run: |
           wget -O safari-web-extension-converter.zip http://github.com/uBlockOrigin/uBOL-home/releases/download/2025.906.1308/uBOLite_2025.906.1308.safari.zip
           unzip -d safari-web-extension-converter safari-web-extension-converter.zip
@@ -17,7 +17,9 @@ jobs:
           zip -r9v "uBlock Origin Lite.ipa" Payload
           cp -rfv "uBlock Origin Lite/build/Release/uBlock Origin Lite.app" ./
       - name: Upload
-        uses: actions/upload-artifact@v4.0.0
+        uses: actions/upload-artifact@v4.6.2
         with:
-          name: uBOL-safari
-          path: ./
+          name: uBlock Origin Lite
+          path: |
+            "uBlock Origin Lite.app"
+            "uBlock Origin Lite.ipa"
