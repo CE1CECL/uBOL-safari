@@ -7,14 +7,15 @@ jobs:
     steps:
       - name: Safari Web Extension Converter
         run: |
-          wget https://github.com/uBlockOrigin/uBOL-home/releases/download/2025.906.1308/uBOLite_2025.906.1308.safari.zip
-          unzip -d safari-web-extension-converter uBOLite_2025.906.1308.safari.zip
+          wget -O safari-web-extension-converter.zip http://github.com/uBlockOrigin/uBOL-home/releases/download/2025.906.1308/uBOLite_2025.906.1308.safari.zip
+          unzip -d safari-web-extension-converter safari-web-extension-converter.zip
           sed -i '' 's/.*strict_min_version.*//g' safari-web-extension-converter/manifest.json
           xcrun safari-web-extension-converter --copy-resources --no-open --no-prompt --force safari-web-extension-converter
           xcodebuild build -alltargets -project "./uBlock Origin Lite/uBlock Origin Lite.xcodeproj" CODE_SIGNING_ALLOWED=NO
           mkdir -pv Payload/
           cp -rfv "uBlock Origin Lite/build/Release-iphoneos/uBlock Origin Lite.app" Payload/
-          zip -r9v uBOL-safari.ipa Payload
+          zip -r9v "uBlock Origin Lite.ipa" Payload
+          cp -rfv "uBlock Origin Lite/build/Release/uBlock Origin Lite.app" ./
       - name: Upload
         uses: actions/upload-artifact@v4.0.0
         with:
